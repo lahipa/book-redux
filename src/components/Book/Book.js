@@ -16,16 +16,20 @@ const Book = ({ book, doUpdate, doDelete }) => {
 
   useEffect(() => {
     setData({
+      ...book,
+      bookCategory: { ...book.bookCategory },
       id: book.id,
       title: book.title,
       synopsis: book.synopsis,
       price: book.price,
       bookStatus: book.bookStatus,
       authorName: book.authorName,
+      publicationDate: new Date()
     });
   }, []);
 
   const handleUpdate = () => {
+    doUpdate(data)
     setEdit(false);
   }
 
@@ -38,7 +42,7 @@ const Book = ({ book, doUpdate, doDelete }) => {
       <Card>
         <Card.Img
           variant="top"
-          src="https://homepages.cae.wisc.edu/~ece533/images/airplane.png"
+          src={book.imageUrl}
         />
         <Card.Body>
           <LinkContainer to={`/book/${book.id}`} style={{ cursor: 'pointer' }}>
@@ -102,7 +106,7 @@ const Book = ({ book, doUpdate, doDelete }) => {
             <>
               <Button variant="primary" onClick={() => handleUpdate()}>
                 Save
-                </Button>{" "}
+              </Button>{" "}
               <Button
                 variant="secondary"
                 onClick={() => {
@@ -117,16 +121,16 @@ const Book = ({ book, doUpdate, doDelete }) => {
                 }}
               >
                 Cancel
-                </Button>
+              </Button>
             </>
           ) : (
-              <>
-                <Button variant="success" onClick={() => setEdit(true)}>
-                  Edit
-                </Button>{" "}
-                <Button variant="danger">Delete</Button>
-              </>
-            )}
+            <>
+              <Button variant="success" onClick={() => setEdit(true)}>
+                Edit
+              </Button>{" "}
+              <Button variant="danger">Delete</Button>
+            </>
+          )}
         </Card.Body>
       </Card>
     </div>

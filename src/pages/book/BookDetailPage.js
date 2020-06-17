@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import '../../App.css';
 import {
   Card,
@@ -6,17 +6,38 @@ import {
 } from 'react-bootstrap';
 import numeral from 'numeral';
 import { LinkContainer } from 'react-router-bootstrap';
+import { connect } from 'react-redux';
+import { getBookById } from '../../store/actions';
+
+const mapStateToProps = (state) => {
+  return {
+    book: state.bookReducer.book
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getBookId: (id) => dispatch(getBookById(id))
+  }
+}
 
 const BookDetailPage = (props) => {
-  const book = {
-    id: 5,
-    title: 'ini judul',
-    isbn: 'null',
-    authorName: 'ini author',
-    synopsis: 'ini sinopsis',
-    price: 84000.0,
-    bookStatus: 'OUT_OF_STOCK',
-  }
+  
+  const { book, match } = props;
+
+  useEffect(() => {
+    props.getBookId(match.params.id);
+  }, [])
+
+  // const book = {
+  //   id: 5,
+  //   title: 'ini judul',
+  //   isbn: 'null',
+  //   authorName: 'ini author',
+  //   synopsis: 'ini sinopsis',
+  //   price: 84000.0,
+  //   bookStatus: 'OUT_OF_STOCK',
+  // }
 
   const bookStatus = book.bookStatus === 'FOR_SELL' ? 'info' : 'warning';
 
@@ -42,7 +63,7 @@ const BookDetailPage = (props) => {
                 className="img-fluid"
                 variant="top"
                 alt=""
-                src="https://homepages.cae.wisc.edu/~ece533/images/airplane.png"
+                src={book.imageUrl}
                 width={450}
               />
             </div>
@@ -72,4 +93,4 @@ const BookDetailPage = (props) => {
   )
 };
 
-export default BookDetailPage;
+export default connect(mapStateToProps, mapDispatchToProps)(BookDetailPage);

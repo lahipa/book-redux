@@ -1,6 +1,7 @@
 export {
     getListBook,
-    //getBookById,
-    //updateBook,
-    //deleteBook
+    getBookById,
+    //addBook,
+    updateBook,
+    deleteBook
 } from './book'
