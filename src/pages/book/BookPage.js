@@ -89,7 +89,14 @@ const BookPage = (props) => {
         </div>
         <div className="container">
           <div className="row">
-            {books && books.map((val, key) => <Book key={key} book={val} doUpdate={handleUpdate} doDelete={handleDelete} /> )}
+            {books && books.map((val, key) => (
+              <Book 
+                key={key}
+                book={val}
+                doUpdate={handleUpdate}
+                doDelete={handleDelete} 
+              /> 
+            ))}
           </div>
         </div>
       </header>

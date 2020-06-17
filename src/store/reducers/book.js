@@ -17,14 +17,14 @@ const books = (state = initialState, action) => {
         ...state,
         book: action.payload,
       };
-    // case actionTypes.UPDATE_BOOK:
-    //   return {
-    //     ...state,
-    //   }
-    // case actionTypes.DELETE_BOOK:
-    //   return {
-    //     ...state,
-    //   };
+    case actionTypes.UPDATE_BOOK:
+      return {
+        ...state,
+      }
+    case actionTypes.DELETE_BOOK:
+      return {
+        ...state,
+      };
     default:
       return initialState;
   }

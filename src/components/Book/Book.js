@@ -33,21 +33,38 @@ const Book = ({ book, doUpdate, doDelete }) => {
     setEdit(false);
   }
 
+  const handleDelete = (id) => {
+    doDelete(id)
+  }
+
   const handleForm = (e, formName) => {
     setData({ ...data, [formName]: e.target.value });
   }
 
   return (
-    <div className="col-md-3">
+    <div className="col-md-3" style={{ marginBottom: '15px' }}>
       <Card>
         <Card.Img
           variant="top"
-          src={book.imageUrl}
+          //src={book.imageUrl}
+          src="https://ashmagautam.files.wordpress.com/2013/11/mcj038257400001.jpg"
         />
         <Card.Body>
-          <LinkContainer to={`/book/${book.id}`} style={{ cursor: 'pointer' }}>
-            <Card.Title className="text-primary">{book.title}</Card.Title>
-          </LinkContainer>
+          {edit ? (
+            <>
+              <FormControl
+                className="mt-2"
+                as="input"
+                value={data.title}
+                onChange={(e) => handleForm(e, "title")}
+                style={{ marginBottom: '10px' }}
+              />
+            </>
+          ) : (
+            <LinkContainer to={`/book/${book.id}`} style={{ cursor: 'pointer' }}>
+              <Card.Title className="text-primary">{book.title}</Card.Title>
+            </LinkContainer>
+          )}
           {edit ? (
             <>
               <Form.Control
@@ -74,19 +91,19 @@ const Book = ({ book, doUpdate, doDelete }) => {
               />
             </>
           ) : (
-              <>
-                <Button
-                  variant={bookStatus}
-                  className="btn-sm font-weight-bold m-2"
-                >
-                  {book.bookStatus}
-                </Button>
-                <h4 className="font-weight-bold" style={{ color: "#8052ff" }}>
-                  {`Rp ${numeral(book.price).format("0,0")}`}
-                </h4>
-                <h6 className="text-dark">Author: {book.authorName}</h6>
-              </>
-            )}
+            <>
+              <Button
+                variant={bookStatus}
+                className="btn-sm font-weight-bold m-2"
+              >
+                {book.bookStatus}
+              </Button>
+              <h4 className="font-weight-bold" style={{ color: "#8052ff" }}>
+                {`Rp ${numeral(book.price).format("0,0")}`}
+              </h4>
+              <h6 className="text-dark">Author: {book.authorName}</h6>
+            </>
+          )}
           <Card.Text className="text-secondary text-justify">
             {edit ? (
               <FormControl
@@ -98,8 +115,8 @@ const Book = ({ book, doUpdate, doDelete }) => {
                 onChange={(e) => handleForm(e, "synopsis")}
               />
             ) : (
-                book.synopsis.substr(0, 150)
-              )}
+              book.synopsis.substr(0, 150)
+            )}
           </Card.Text>
 
           {edit ? (
@@ -113,10 +130,10 @@ const Book = ({ book, doUpdate, doDelete }) => {
                   setEdit(false);
                   setData({
                     title: book.title,
-                    synopsis: book.synopsis,
                     price: book.price,
                     bookStatus: book.bookStatus,
                     authorName: book.authorName,
+                    synopsis: book.synopsis,
                   })
                 }}
               >
@@ -128,7 +145,12 @@ const Book = ({ book, doUpdate, doDelete }) => {
               <Button variant="success" onClick={() => setEdit(true)}>
                 Edit
               </Button>{" "}
-              <Button variant="danger">Delete</Button>
+              <Button 
+                variant="danger"
+                onClick={() => handleDelete(book.id)}
+              >
+                Delete
+              </Button>
             </>
           )}
         </Card.Body>

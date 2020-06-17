@@ -38,7 +38,7 @@ export const getBookById = (id) => {
 }
 
 export const updateBook = (data) => {
-    const request = axios.get(`${ENDPOINT}/book/update`, data, {
+    const request = axios.post(`${ENDPOINT}/book/update`, data, {
         headers: {
             Authorization: `Bearer ${access_token}`
         }
@@ -58,7 +58,7 @@ export const updateBook = (data) => {
 }
 
 export const deleteBook = (id) => {
-    const request = axios.get(`${ENDPOINT}/book/deleteById/${id}`, {
+    const request = axios.delete(`${ENDPOINT}/book/deleteById/${id}`, {
         headers: {
             Authorization: `Bearer ${access_token}`
         }

@@ -63,7 +63,8 @@ const BookDetailPage = (props) => {
                 className="img-fluid"
                 variant="top"
                 alt=""
-                src={book.imageUrl}
+                //src={book.imageUrl}
+                src="https://ashmagautam.files.wordpress.com/2013/11/mcj038257400001.jpg"
                 width={450}
               />
             </div>
